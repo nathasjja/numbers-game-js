@@ -1,0 +1,187 @@
+
+:root{
+  --bg: #000;             /* jet black */
+  --card: #0a0a0a;        /* near-black for subtle layering */
+  --text: #e6ffe6;        /* soft greenish off-white */
+  --muted: #15f600;       /* muted accent text */
+  --accent: #27ff13;      /* neon green accent */
+  --accent-2: #ffffff;    /* darker accent for borders */
+  --danger: #ff2b2b;      /* minimal red for errors */
+  --radius: 14px;
+  --shadow: 0 0 24px rgba(0,255,136,0.12);
+  --glow: 0 0 18px rgba(0,255,136,0.35);
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  background: radial-gradient(1200px 800px at 10% 0%, rgba(0,255,136,0.06), transparent 40%) var(--bg);
+  color: var(--text);
+}
+
+html { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+body {
+  margin: 0;
+  display: grid;
+  place-items: start center;
+  padding: 48px 16px;
+}
+
+/* Container */
+.container{
+  width: min(800px, 92vw);
+  background: linear-gradient(to bottom, rgba(0,255,136,0.05), rgba(0,255,136,0.02)) , var(--card);
+  border: 1px solid rgba(0,255,136,0.25);
+  border-radius: var(--radius);
+  padding: 28px 24px 32px;
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(2px);
+}
+
+/* Title & text */
+.title{
+  margin: 0 0 8px;
+  font-size: clamp(24px, 4vw, 36px);
+  letter-spacing: 0.6px;
+  text-shadow: var(--glow);
+}
+
+.lede{
+  margin: 0 0 20px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* Form */
+.form{
+  margin: 16px 0 8px;
+}
+
+.label{
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+.controls{
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+/* Inputs & buttons */
+.input{
+  width: 220px;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: #050505;
+  color: var(--text);
+  border: 1px solid rgba(0,255,136,0.35);
+  outline: none;
+  transition: border-color .15s ease, box-shadow .15s ease, transform .05s ease;
+  box-shadow: inset 0 0 8px rgba(0,255,136,0.08);
+}
+
+.input:focus{
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0,255,136,0.18), var(--glow);
+  transform: translateY(-1px);
+}
+
+.input::-webkit-outer-spin-button,
+.input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+.button{
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid var(--accent-2);
+  background: linear-gradient(to bottom, rgba(0,255,136,0.18), rgba(0,255,136,0.12));
+  color: var(--accent-2);
+  font: 1em monospace;
+  font-weight: 700;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  box-shadow: var(--glow);
+  transition: transform .08s ease, filter .15s ease, box-shadow .2s ease;
+}
+
+.button:hover{ filter: brightness(1.05); }
+.button:active{ transform: translateY(1px) scale(0.99); }
+
+.button:disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: saturate(0.2);
+}
+
+.button.ghost{
+  background: transparent;
+  color: var(--accent);
+  border-color: rgba(0,255,136,0.35);
+}
+
+/* Results */
+.resultParas{
+  margin-top: 18px;
+  display: grid;
+  gap: 8px;
+}
+
+.mono{ color: var(--muted); }
+
+.badge{
+  display: inline-block;
+  min-height: 34px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(0,255,136,0.35);
+  background: rgba(0,255,136,0.06);
+  box-shadow: inset 0 0 12px rgba(0,255,136,0.08);
+  font-weight: 700;
+  letter-spacing: 0.3px;
+}
+
+/* State colors handled via classes from JS */
+.is-correct{
+  border-color: rgba(0,255,136,0.75);
+  color: var(--bg);
+  background: var(--accent);
+  text-shadow: none;
+}
+
+.is-wrong{
+  border-color: rgba(255, 43, 43, 0.55);
+  color: #ffdede;
+  background: rgba(255, 43, 43, 0.12);
+  box-shadow: 0 0 14px rgba(255, 43, 43, 0.18) inset;
+}
+
+/* Helper links, selections, scrollbars */
+::selection{ background: rgba(0,255,136,0.35); color: var(--bg); }
+
+@media (max-width: 520px){
+  .input{ width: 100%; }
+  .controls{ gap: 10px; }
+}
+
+/* Optional subtle scanline effect for flair */
+.container::after{
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0,255,136,0.015),
+    rgba(0,255,136,0.015) 2px,
+    transparent 2px,
+    transparent 4px
+  );
+  border-radius: var(--radius);
+  mix-blend-mode: lighten;
+}
